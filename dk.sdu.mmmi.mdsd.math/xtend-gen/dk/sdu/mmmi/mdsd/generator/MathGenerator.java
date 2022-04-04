@@ -5,14 +5,17 @@ package dk.sdu.mmmi.mdsd.generator;
 
 import com.google.common.collect.Iterators;
 import dk.sdu.mmmi.mdsd.math.Div;
-import dk.sdu.mmmi.mdsd.math.Exp;
-import dk.sdu.mmmi.mdsd.math.ExpOp;
+import dk.sdu.mmmi.mdsd.math.Expression;
+import dk.sdu.mmmi.mdsd.math.Let;
 import dk.sdu.mmmi.mdsd.math.MathExp;
 import dk.sdu.mmmi.mdsd.math.Minus;
 import dk.sdu.mmmi.mdsd.math.Mult;
+import dk.sdu.mmmi.mdsd.math.Num;
 import dk.sdu.mmmi.mdsd.math.Plus;
-import dk.sdu.mmmi.mdsd.math.Primary;
+import dk.sdu.mmmi.mdsd.math.Var;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JOptionPane;
@@ -20,6 +23,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 
 /**
  * Generates code from your model files on save.
@@ -32,59 +36,83 @@ public class MathGenerator extends AbstractGenerator {
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
-    final MathExp math = Iterators.<MathExp>filter(resource.getAllContents(), MathExp.class).next();
-    final Map<String, Integer> result = MathGenerator.compute(math);
-    this.displayPanel(result);
+    final Iterator<MathExp> math = Iterators.<MathExp>filter(resource.getAllContents(), MathExp.class);
+    final List<MathExp> list = IteratorExtensions.<MathExp>toList(math);
+    for (final MathExp exp : list) {
+      MathGenerator.compute(exp);
+    }
+    this.displayPanel(MathGenerator.variables);
   }
   
   public static Map<String, Integer> compute(final MathExp math) {
-    MathGenerator.computeExp(math.getExp());
+    MathGenerator.variables.put(math.getName(), Integer.valueOf(MathGenerator.computeExp(math.getExp(), MathGenerator.variables)));
     return MathGenerator.variables;
   }
   
-  public static int computeExp(final Exp exp) {
-    int _xblockexpression = (int) 0;
-    {
-      final int left = MathGenerator.computePrim(exp.getLeft());
-      int _switchResult = (int) 0;
-      ExpOp _operator = exp.getOperator();
-      boolean _matched = false;
-      if (_operator instanceof Plus) {
-        _matched=true;
-        int _computeExp = MathGenerator.computeExp(exp.getRight());
-        _switchResult = (left + _computeExp);
-      }
-      if (!_matched) {
-        if (_operator instanceof Minus) {
-          _matched=true;
-          int _computeExp = MathGenerator.computeExp(exp.getRight());
-          _switchResult = (left - _computeExp);
-        }
-      }
-      if (!_matched) {
-        if (_operator instanceof Mult) {
-          _matched=true;
-          int _computeExp = MathGenerator.computeExp(exp.getRight());
-          _switchResult = (left * _computeExp);
-        }
-      }
-      if (!_matched) {
-        if (_operator instanceof Div) {
-          _matched=true;
-          int _computeExp = MathGenerator.computeExp(exp.getRight());
-          _switchResult = (left / _computeExp);
-        }
-      }
-      if (!_matched) {
-        _switchResult = left;
-      }
-      _xblockexpression = _switchResult;
+  public static int computeExp(final Expression exp, final Map<String, Integer> map) {
+    Integer _switchResult = null;
+    boolean _matched = false;
+    if (exp instanceof Plus) {
+      _matched=true;
+      int _computeExp = MathGenerator.computeExp(((Plus)exp).getLeft(), map);
+      int _computeExp_1 = MathGenerator.computeExp(((Plus)exp).getRight(), map);
+      _switchResult = Integer.valueOf((_computeExp + _computeExp_1));
     }
-    return _xblockexpression;
+    if (!_matched) {
+      if (exp instanceof Minus) {
+        _matched=true;
+        int _computeExp = MathGenerator.computeExp(((Minus)exp).getLeft(), map);
+        int _computeExp_1 = MathGenerator.computeExp(((Minus)exp).getRight(), map);
+        _switchResult = Integer.valueOf((_computeExp - _computeExp_1));
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof Mult) {
+        _matched=true;
+        int _computeExp = MathGenerator.computeExp(((Mult)exp).getLeft(), map);
+        int _computeExp_1 = MathGenerator.computeExp(((Mult)exp).getRight(), map);
+        _switchResult = Integer.valueOf((_computeExp * _computeExp_1));
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof Div) {
+        _matched=true;
+        int _computeExp = MathGenerator.computeExp(((Div)exp).getLeft(), map);
+        int _computeExp_1 = MathGenerator.computeExp(((Div)exp).getRight(), map);
+        _switchResult = Integer.valueOf((_computeExp / _computeExp_1));
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof Var) {
+        _matched=true;
+        _switchResult = map.get(((Var)exp).getRef().getName());
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof Num) {
+        _matched=true;
+        _switchResult = Integer.valueOf(((Num)exp).getValue());
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof Let) {
+        _matched=true;
+        _switchResult = Integer.valueOf(MathGenerator.computeExp(((Let)exp).getBody(), MathGenerator.bind(map, ((Let)exp).getId(), MathGenerator.computeExp(((Let)exp).getBinding(), map))));
+      }
+    }
+    if (!_matched) {
+      throw new Error("Expression is not accepted");
+    }
+    return (_switchResult).intValue();
   }
   
-  public static int computePrim(final Primary factor) {
-    return 87;
+  public static Map<String, Integer> bind(final Map<String, Integer> map1, final String name, final int value) {
+    Map<String, Integer> _xblockexpression = null;
+    {
+      MathGenerator.variables.put(name, Integer.valueOf(value));
+      _xblockexpression = MathGenerator.variables;
+    }
+    return _xblockexpression;
   }
   
   public void displayPanel(final Map<String, Integer> result) {

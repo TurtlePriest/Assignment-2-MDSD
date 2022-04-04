@@ -2,30 +2,44 @@ grammar dk.sdu.mmmi.mdsd.Math with org.eclipse.xtext.common.Terminals
 
 generate math "http://www.sdu.dk/mmmi/mdsd/Math"
 
+Model:
+	(expressions+=MathExp)*
+;
 MathExp:
 	'var' name=ID '=' exp=Exp
 ;
 
-Exp: // Illegal due to left recursion
-	left=Number (operator=ExpOp right=Exp)?
+Exp returns Expression:
+	MultOrDiv ((
+		'+' {Plus.left=current} |
+		'-' {Minus.left=current} 		
+	) right=MultOrDiv)*
 ;
 
-ExpOp:
-	{Plus} '+' | {Minus} '-'	 | {Mult} '*' | {Div} '/'	
+MultOrDiv returns Expression:
+	Primary ((
+		'*' {Mult.left=current} |
+		'/' {Div.left=current}
+	) right=Primary)*
+
 ;
 
-Primary:
-	Number | Parenthesis | VariableUse
+Primary returns Expression:
+	Number | Parenthesis | VariableUse | Binding
 ;
 
-Parenthesis:
-	'(' exp=Exp ')'
+VariableUse returns Expression:
+	{Var} ref = [MathExp]
 ;
 
-Number:
-	value=INT
+Binding returns Expression:
+	{Let} 'let' id=ID '=' binding=Exp 'in' body=Exp 'end'
 ;
 
-VariableUse:
-	ref = [MathExp]
+Parenthesis returns Expression:
+	'(' Exp ')'
+;
+
+Number returns Expression:
+	{Num} value=INT
 ;
