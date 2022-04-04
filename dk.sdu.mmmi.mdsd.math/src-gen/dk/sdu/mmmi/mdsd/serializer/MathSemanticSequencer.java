@@ -9,7 +9,6 @@ import dk.sdu.mmmi.mdsd.math.Let;
 import dk.sdu.mmmi.mdsd.math.MathExp;
 import dk.sdu.mmmi.mdsd.math.MathPackage;
 import dk.sdu.mmmi.mdsd.math.Minus;
-import dk.sdu.mmmi.mdsd.math.Model;
 import dk.sdu.mmmi.mdsd.math.Mult;
 import dk.sdu.mmmi.mdsd.math.Num;
 import dk.sdu.mmmi.mdsd.math.Plus;
@@ -51,9 +50,6 @@ public class MathSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case MathPackage.MINUS:
 				sequence_Exp(context, (Minus) semanticObject); 
-				return; 
-			case MathPackage.MODEL:
-				sequence_Model(context, (Model) semanticObject); 
 				return; 
 			case MathPackage.MULT:
 				sequence_MultOrDiv(context, (Mult) semanticObject); 
@@ -186,20 +182,6 @@ public class MathSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		feeder.accept(grammarAccess.getMathExpAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getMathExpAccess().getExpExpParserRuleCall_3_0(), semanticObject.getExp());
 		feeder.finish();
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
-	 *     Model returns Model
-	 *
-	 * Constraint:
-	 *     expressions+=MathExp+
-	 * </pre>
-	 */
-	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

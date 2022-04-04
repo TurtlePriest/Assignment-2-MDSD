@@ -43,7 +43,7 @@ import dk.sdu.mmmi.mdsd.services.MathGrammarAccess;
 
     @Override
     protected String getFirstRuleName() {
-    	return "Model";
+    	return "MathExp";
    	}
 
    	@Override
@@ -59,42 +59,6 @@ import dk.sdu.mmmi.mdsd.services.MathGrammarAccess;
         appendSkippedTokens();
     }
 }
-
-// Entry rule entryRuleModel
-entryRuleModel returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getModelRule()); }
-	iv_ruleModel=ruleModel
-	{ $current=$iv_ruleModel.current; }
-	EOF;
-
-// Rule Model
-ruleModel returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			{
-				newCompositeNode(grammarAccess.getModelAccess().getExpressionsMathExpParserRuleCall_0());
-			}
-			lv_expressions_0_0=ruleMathExp
-			{
-				if ($current==null) {
-					$current = createModelElementForParent(grammarAccess.getModelRule());
-				}
-				add(
-					$current,
-					"expressions",
-					lv_expressions_0_0,
-					"dk.sdu.mmmi.mdsd.Math.MathExp");
-				afterParserOrEnumRuleCall();
-			}
-		)
-	)*
-;
 
 // Entry rule entryRuleMathExp
 entryRuleMathExp returns [EObject current=null]:

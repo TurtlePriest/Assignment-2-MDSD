@@ -58,34 +58,6 @@ public interface MathPackage extends EPackage
   MathPackage eINSTANCE = dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl.init();
 
   /**
-   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.ModelImpl <em>Model</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see dk.sdu.mmmi.mdsd.math.impl.ModelImpl
-   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getModel()
-   * @generated
-   */
-  int MODEL = 0;
-
-  /**
-   * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODEL__EXPRESSIONS = 0;
-
-  /**
-   * The number of structural features of the '<em>Model</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODEL_FEATURE_COUNT = 1;
-
-  /**
    * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.MathExpImpl <em>Exp</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -93,7 +65,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getMathExp()
    * @generated
    */
-  int MATH_EXP = 1;
+  int MATH_EXP = 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -130,7 +102,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getExpression()
    * @generated
    */
-  int EXPRESSION = 2;
+  int EXPRESSION = 1;
 
   /**
    * The number of structural features of the '<em>Expression</em>' class.
@@ -149,7 +121,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getPlus()
    * @generated
    */
-  int PLUS = 3;
+  int PLUS = 2;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -186,7 +158,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getMinus()
    * @generated
    */
-  int MINUS = 4;
+  int MINUS = 3;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -223,7 +195,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getMult()
    * @generated
    */
-  int MULT = 5;
+  int MULT = 4;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -260,7 +232,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getDiv()
    * @generated
    */
-  int DIV = 6;
+  int DIV = 5;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -297,7 +269,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getVar()
    * @generated
    */
-  int VAR = 7;
+  int VAR = 6;
 
   /**
    * The feature id for the '<em><b>Ref</b></em>' reference.
@@ -325,7 +297,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getLet()
    * @generated
    */
-  int LET = 8;
+  int LET = 7;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -371,7 +343,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getNum()
    * @generated
    */
-  int NUM = 9;
+  int NUM = 8;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -391,27 +363,6 @@ public interface MathPackage extends EPackage
    */
   int NUM_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
-
-  /**
-   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.Model <em>Model</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Model</em>'.
-   * @see dk.sdu.mmmi.mdsd.math.Model
-   * @generated
-   */
-  EClass getModel();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link dk.sdu.mmmi.mdsd.math.Model#getExpressions <em>Expressions</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Expressions</em>'.
-   * @see dk.sdu.mmmi.mdsd.math.Model#getExpressions()
-   * @see #getModel()
-   * @generated
-   */
-  EReference getModel_Expressions();
 
   /**
    * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.MathExp <em>Exp</em>}'.
@@ -691,24 +642,6 @@ public interface MathPackage extends EPackage
    */
   interface Literals
   {
-    /**
-     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.ModelImpl <em>Model</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see dk.sdu.mmmi.mdsd.math.impl.ModelImpl
-     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getModel()
-     * @generated
-     */
-    EClass MODEL = eINSTANCE.getModel();
-
-    /**
-     * The meta object literal for the '<em><b>Expressions</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MODEL__EXPRESSIONS = eINSTANCE.getModel_Expressions();
-
     /**
      * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.MathExpImpl <em>Exp</em>}' class.
      * <!-- begin-user-doc -->

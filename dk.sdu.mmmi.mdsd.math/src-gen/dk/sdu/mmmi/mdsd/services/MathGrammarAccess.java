@@ -24,22 +24,6 @@ import org.eclipse.xtext.service.GrammarProvider;
 @Singleton
 public class MathGrammarAccess extends AbstractElementFinder.AbstractGrammarElementFinder {
 	
-	public class ModelElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "dk.sdu.mmmi.mdsd.Math.Model");
-		private final Assignment cExpressionsAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cExpressionsMathExpParserRuleCall_0 = (RuleCall)cExpressionsAssignment.eContents().get(0);
-		
-		//Model:
-		//    (expressions+=MathExp)*
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//(expressions+=MathExp)*
-		public Assignment getExpressionsAssignment() { return cExpressionsAssignment; }
-		
-		//MathExp
-		public RuleCall getExpressionsMathExpParserRuleCall_0() { return cExpressionsMathExpParserRuleCall_0; }
-	}
 	public class MathExpElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "dk.sdu.mmmi.mdsd.Math.MathExp");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -50,6 +34,9 @@ public class MathGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		private final Assignment cExpAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cExpExpParserRuleCall_3_0 = (RuleCall)cExpAssignment_3.eContents().get(0);
 		
+		///*Model:
+		//    (expressions+=MathExp)*
+		//; */
 		//MathExp:
 		//    'var' name=ID '=' exp=Exp
 		//;
@@ -374,7 +361,6 @@ public class MathGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	}
 	
 	
-	private final ModelElements pModel;
 	private final MathExpElements pMathExp;
 	private final ExpElements pExp;
 	private final MultOrDivElements pMultOrDiv;
@@ -393,7 +379,6 @@ public class MathGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 			TerminalsGrammarAccess gaTerminals) {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaTerminals = gaTerminals;
-		this.pModel = new ModelElements();
 		this.pMathExp = new MathExpElements();
 		this.pExp = new ExpElements();
 		this.pMultOrDiv = new MultOrDivElements();
@@ -431,17 +416,9 @@ public class MathGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	}
 
 	
-	//Model:
+	///*Model:
 	//    (expressions+=MathExp)*
-	//;
-	public ModelElements getModelAccess() {
-		return pModel;
-	}
-	
-	public ParserRule getModelRule() {
-		return getModelAccess().getRule();
-	}
-	
+	//; */
 	//MathExp:
 	//    'var' name=ID '=' exp=Exp
 	//;

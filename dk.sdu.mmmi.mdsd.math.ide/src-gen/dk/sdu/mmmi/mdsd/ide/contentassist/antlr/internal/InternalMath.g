@@ -49,31 +49,6 @@ import dk.sdu.mmmi.mdsd.services.MathGrammarAccess;
 	}
 }
 
-// Entry rule entryRuleModel
-entryRuleModel
-:
-{ before(grammarAccess.getModelRule()); }
-	 ruleModel
-{ after(grammarAccess.getModelRule()); } 
-	 EOF 
-;
-
-// Rule Model
-ruleModel 
-	@init {
-		int stackSize = keepStackSize();
-	}
-	:
-	(
-		{ before(grammarAccess.getModelAccess().getExpressionsAssignment()); }
-		(rule__Model__ExpressionsAssignment)*
-		{ after(grammarAccess.getModelAccess().getExpressionsAssignment()); }
-	)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 // Entry rule entryRuleMathExp
 entryRuleMathExp
 :
@@ -1293,21 +1268,6 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-
-rule__Model__ExpressionsAssignment
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	(
-		{ before(grammarAccess.getModelAccess().getExpressionsMathExpParserRuleCall_0()); }
-		ruleMathExp
-		{ after(grammarAccess.getModelAccess().getExpressionsMathExpParserRuleCall_0()); }
-	)
-;
-finally {
-	restoreStackSize(stackSize);
-}
 
 rule__MathExp__NameAssignment_1
 	@init {

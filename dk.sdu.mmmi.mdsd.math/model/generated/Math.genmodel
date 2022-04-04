@@ -6,9 +6,6 @@
     copyrightFields="false" runtimeVersion="2.20">
   <genPackages prefix="Math" basePackage="dk.sdu.mmmi.mdsd" disposableProviderFactory="true"
       fileExtensions="math" ecorePackage="Math.ecore#/">
-    <genClasses ecoreClass="Math.ecore#//Model">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Math.ecore#//Model/expressions"/>
-    </genClasses>
     <genClasses ecoreClass="Math.ecore#//MathExp">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Math.ecore#//MathExp/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Math.ecore#//MathExp/exp"/>

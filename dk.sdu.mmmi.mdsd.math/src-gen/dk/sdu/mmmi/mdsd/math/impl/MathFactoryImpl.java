@@ -65,7 +65,6 @@ public class MathFactoryImpl extends EFactoryImpl implements MathFactory
   {
     switch (eClass.getClassifierID())
     {
-      case MathPackage.MODEL: return createModel();
       case MathPackage.MATH_EXP: return createMathExp();
       case MathPackage.EXPRESSION: return createExpression();
       case MathPackage.PLUS: return createPlus();
@@ -78,18 +77,6 @@ public class MathFactoryImpl extends EFactoryImpl implements MathFactory
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Model createModel()
-  {
-    ModelImpl model = new ModelImpl();
-    return model;
   }
 
   /**

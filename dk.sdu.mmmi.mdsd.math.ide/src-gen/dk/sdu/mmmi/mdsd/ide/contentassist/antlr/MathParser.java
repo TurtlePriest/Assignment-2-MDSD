@@ -47,7 +47,6 @@ public class MathParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getBindingAccess().getGroup(), "rule__Binding__Group__0");
 			builder.put(grammarAccess.getParenthesisAccess().getGroup(), "rule__Parenthesis__Group__0");
 			builder.put(grammarAccess.getNumberAccess().getGroup(), "rule__Number__Group__0");
-			builder.put(grammarAccess.getModelAccess().getExpressionsAssignment(), "rule__Model__ExpressionsAssignment");
 			builder.put(grammarAccess.getMathExpAccess().getNameAssignment_1(), "rule__MathExp__NameAssignment_1");
 			builder.put(grammarAccess.getMathExpAccess().getExpAssignment_3(), "rule__MathExp__ExpAssignment_3");
 			builder.put(grammarAccess.getExpAccess().getRightAssignment_1_1(), "rule__Exp__RightAssignment_1_1");

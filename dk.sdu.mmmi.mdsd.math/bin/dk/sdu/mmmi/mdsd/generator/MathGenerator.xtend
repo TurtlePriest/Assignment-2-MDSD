@@ -19,6 +19,7 @@ import dk.sdu.mmmi.mdsd.math.Num
 import dk.sdu.mmmi.mdsd.math.Var
 import dk.sdu.mmmi.mdsd.math.Let
 import dk.sdu.mmmi.mdsd.math.MathExp
+//import dk.sdu.mmmi.mdsd.math.Model
 
 /**
  * Generates code from your model files on save.
@@ -30,6 +31,7 @@ class MathGenerator extends AbstractGenerator {
 	static Map<String, Integer> variables = new HashMap();
 	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		//val math = resource.allContents.filter(Model).next.expressions
 		val math = resource.allContents.filter(MathExp)
 		
 		val list = math.toList
@@ -38,8 +40,6 @@ class MathGenerator extends AbstractGenerator {
 			exp.compute
 				
 		}
-		
-		
 		
 		
 		// You can replace with hovering, see Bettini Chapter 8
